@@ -1,7 +1,7 @@
 ---
 - name: Fetch uv install script
   ansible.builtin.uri:
-    uri: https://astral.sh/uv/0.12.5/install.sh
+    uri: https://astral.sh/uv/install.sh
     dest: /tmp/uv-install.sh
     mode: "0755"
 

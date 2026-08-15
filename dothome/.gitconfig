@@ -1,0 +1,9 @@
+[user]
+	email = "samuel.istnd@gmail.com"
+	name = "Samuel"
+
+[init]
+	defaultBranch = "main"
+
+[push]
+	autoSetupRemote = "true"

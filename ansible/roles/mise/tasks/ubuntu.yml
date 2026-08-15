@@ -1,0 +1,19 @@
+---
+- name: Ensure software-properties-common is installed
+  become: true
+  ansible.builtin.apt:
+    name: software-properties-common
+    state: present
+
+- name: Add mise PPA
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:jdxcode/mise
+    state: present
+
+- name: Install mise
+  become: true
+  ansible.builtin.apt:
+    name: mise
+    state: present
+    update_cache: true

@@ -4,9 +4,6 @@ ansible_user: "sxavity"
 
 distro_name: "{{ ansible_facts['distribution'] | lower }}"
 
-git_email: "samuel.istnd@gmail.com"
-git_name: "Samuel"
-
 timezone: "Asia/Jakarta"
 keyboard_layout: "us"
 
