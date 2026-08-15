@@ -1,0 +1,4 @@
+--target=~/.config
+--ignore=.stowrc
+--ignore=.git/*
+--ignore=^(zsh|home\.nix|flake\.nix|flake\.lock|setup\.sh|\.gitignore)$

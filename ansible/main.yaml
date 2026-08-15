@@ -1,0 +1,8 @@
+---
+- name: Run setup system
+  ansible.builtin.import_playbook: system.yaml
+
+- name: Cleanup
+  roles:
+    - role: cleanup
+      tags: [cleanup]

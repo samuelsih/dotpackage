@@ -1,0 +1,14 @@
+---
+- name: Add sudo user
+  become: true
+  vars:
+    sudo_group_map:
+      Ubuntu: sudo
+      Archlinux: wheel
+      Fedora: wheel
+    user_group: >-
+      {{ sudo_group_map[ansible_facts['distribution']] | default('wheel') }}
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    append: true
+    groups: "{{ user_group }}"

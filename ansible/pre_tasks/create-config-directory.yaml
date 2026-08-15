@@ -1,0 +1,6 @@
+---
+- name: Create .config directory
+  ansible.builtin.file:
+    path: "{{ config_dir }}"
+    state: directory
+    mode: "0755"

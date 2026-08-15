@@ -1,0 +1,9 @@
+---
+config_dir: "{{ ansible_facts['user_dir'] }}/.config"
+ansible_user: "sxavity"
+
+git_email: "samuel.istnd@gmail.com"
+git_name: "Samuel"
+
+timezone: "Asia/Jakarta"
+keyboard_layout: "us"

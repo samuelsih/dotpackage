@@ -1,0 +1,33 @@
+# Ansible retry files (generated on failed runs)
+*.retry
+
+# Vault password files — never commit secrets
+.vault_pass
+.vault_password
+vault_pass.txt
+vault-password.txt
+*vault*pass*
+
+# Private keys / secrets
+*.pem
+*.key
+.env
+.env.*
+
+# Ansible local cache and tmp
+.ansible/
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Downloaded collections (keep the requirements manifest, ignore installed content)
+collections/*
+!collections/requirements.yaml
+
+# Secrets inside inventory
+inventory/*_secrets.yml
+inventory/*_secrets.yaml
