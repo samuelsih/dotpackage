@@ -1,0 +1,21 @@
+---
+- name: Install common packages
+  become: true
+  block:
+    - name: Install common packages with 'apt'
+      ansible.builtin.apt:
+        name: "{{ target_packages }}"
+        state: present
+      when: distro_name == "ubuntu"
+
+    - name: Install common packages with 'pacman'
+      community.general.pacman:
+        name: "{{ target_packages }}"
+        state: present
+      when: distro_name == "archlinux"
+
+    - name: Install common packages with 'dnf'
+      ansible.builtin.dnf:
+        name: "{{ target_packages }}"
+        state: present
+      when: distro_name == "fedora"

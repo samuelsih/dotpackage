@@ -1,0 +1,19 @@
+---
+target_packages:
+  - git
+  - wget
+  - curl
+  - fd
+  - less
+  - nano
+  - vim
+  - htop
+  - btop
+  - jq
+  - zip
+  - unzip
+  - tar
+  - untar
+  - ripgrep
+  - tmux
+  - stow

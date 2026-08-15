@@ -24,9 +24,8 @@ __pycache__/
 # Logs
 *.log
 
-# Downloaded collections (keep the requirements manifest, ignore installed content)
+# Downloaded collections (requirements manifest lives at repo root)
 collections/*
-!collections/requirements.yaml
 
 # Secrets inside inventory
 inventory/*_secrets.yml

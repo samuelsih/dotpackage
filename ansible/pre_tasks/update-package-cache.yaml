@@ -5,17 +5,17 @@
     - name: Update 'apt' cache
       ansible.builtin.apt:
         update_cache: true
-      when: ansible_facts['distribution'] == "Ubuntu"
+      when: distro_name == "ubuntu"
       changed_when: false
 
     - name: Update 'pacman' cache
       community.general.pacman:
         update_cache: true
-      when: ansible_facts['distribution'] == "Archlinux"
+      when: distro_name == "archlinux"
       changed_when: false
 
     - name: Update 'dnf' cache
       ansible.builtin.dnf:
         update_cache: true
-      when: ansible_facts['distribution'] == "Fedora"
+      when: distro_name == "fedora"
       changed_when: false
