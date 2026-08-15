@@ -65,5 +65,5 @@ echo "Running ansible playbook"
 run_playbook
 
 echo "Stowify config"
-stow -t ~ zsh
-stow .
+stow -t ~/.config dotconfig
+stow -t ~ dothome

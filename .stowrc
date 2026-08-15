@@ -1,4 +1,0 @@
---target=~/.config
---ignore=.stowrc
---ignore=.git/*
---ignore=^(zsh|ansible|\.gitignore)$

@@ -16,4 +16,5 @@ target_packages:
   - untar
   - ripgrep
   - tmux
+  - pass
   - stow
