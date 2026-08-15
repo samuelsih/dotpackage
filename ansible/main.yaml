@@ -3,6 +3,6 @@
   ansible.builtin.import_playbook: system.yaml
 
 - name: Cleanup
+  hosts: all
   roles:
-    - role: cleanup
-      tags: [cleanup]
+    - cleanup
