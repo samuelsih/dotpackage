@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -e
 
 DOTPACKAGE_REPO="${DOTPACKAGE_REPO:-https://github.com/sxavity/dotpackage.git}"

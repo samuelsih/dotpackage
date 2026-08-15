@@ -18,3 +18,4 @@ target_packages:
   - tmux
   - pass
   - stow
+  - podman
