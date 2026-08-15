@@ -15,3 +15,5 @@
   roles:
     - packages
     - fonts
+    - zsh
+    - starship
