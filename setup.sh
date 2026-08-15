@@ -46,7 +46,7 @@ function install_collections {
 }
 
 function run_playbook {
-  (cd ansible && ansible-playbook main.yaml --ask-become-pass)
+  (cd ansible && ansible-playbook main.yaml --ask-become-pass --ask-vault-pass)
 }
 
 os=$(detect_os)

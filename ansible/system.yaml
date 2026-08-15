@@ -12,6 +12,9 @@
     - name: Create .config directory
       ansible.builtin.import_tasks: pre_tasks/create-config-directory.yaml
 
+    - name: Setup SSH
+      ansible.builtin.import_tasks: pre_tasks/setup_ssh.yaml
+
   roles:
     - packages
     - fonts

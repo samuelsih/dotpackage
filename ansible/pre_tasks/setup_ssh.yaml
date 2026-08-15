@@ -6,3 +6,12 @@
     mode: "0700"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
+
+- name: Install SSH private key
+  ansible.builtin.copy:
+    content: "{{ ssh_private_key }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.ssh/id_ed25519"
+    mode: "0600"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  when: ssh_private_key is defined
