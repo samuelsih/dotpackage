@@ -1,15 +1,16 @@
 ---
-- name: Ensure software-properties-common is installed
+- name: Ensure extrepo is installed
   become: true
   ansible.builtin.apt:
-    name: software-properties-common
+    name: extrepo
     state: present
+    update_cache: true
 
-- name: Add mise PPA
+- name: Enable mise extrepo repository
   become: true
-  ansible.builtin.apt_repository:
-    repo: ppa:jdxcode/mise
-    state: present
+  ansible.builtin.command: extrepo enable mise
+  args:
+    creates: /etc/apt/sources.list.d/extrepo_mise.sources
 
 - name: Install mise
   become: true

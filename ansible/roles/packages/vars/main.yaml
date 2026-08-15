@@ -3,7 +3,6 @@ target_packages:
   - git
   - wget
   - curl
-  - fd
   - less
   - nano
   - vim
@@ -13,9 +12,39 @@ target_packages:
   - zip
   - unzip
   - tar
-  - untar
   - ripgrep
   - tmux
   - pass
   - stow
   - podman
+  - brightnessctl
+  - pipewire
+  - pipewire-pulse
+  - wireplumber
+  - bluez
+  - sway
+  - waybar
+  - dunst
+
+distro_packages:
+  ubuntu:
+    - network-manager
+    - fd-find
+  archlinux:
+    - networkmanager
+    - fd
+    - fastfetch
+  fedora:
+    - NetworkManager
+    - fd-find
+    - fastfetch
+
+system_services:
+  - bluetooth.service
+  - NetworkManager.service
+
+user_services:
+  - pipewire.socket
+  - pipewire-pulse.socket
+  - wireplumber.service
+  - podman.socket

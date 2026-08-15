@@ -1,21 +1,72 @@
 ---
+- name: Build distro-specific package list
+  ansible.builtin.set_fact:
+    install_packages: "{{ target_packages + distro_packages[distro_name] | default([]) }}"
+
 - name: Install common packages
   become: true
   block:
     - name: Install common packages with 'apt'
       ansible.builtin.apt:
-        name: "{{ target_packages }}"
+        name: "{{ install_packages }}"
         state: present
       when: distro_name == "ubuntu"
 
     - name: Install common packages with 'pacman'
       community.general.pacman:
-        name: "{{ target_packages }}"
+        name: "{{ install_packages }}"
         state: present
       when: distro_name == "archlinux"
 
     - name: Install common packages with 'dnf'
       ansible.builtin.dnf:
-        name: "{{ target_packages }}"
+        name: "{{ install_packages }}"
         state: present
       when: distro_name == "fedora"
+
+- name: Install fastfetch (Ubuntu)
+  become: true
+  block:
+    - name: Add fastfetch PPA
+      ansible.builtin.deb822_repository:
+        repo: ppa:zhangsongcui3371/fastfetch
+        state: present
+
+    - name: Install fastfetch from PPA
+      ansible.builtin.apt:
+        name: fastfetch
+        state: present
+        update_cache: true
+  when: distro_name == "ubuntu"
+
+- name: Manage system services
+  become: true
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop: "{{ system_services }}"
+
+- name: Resolve UID for user services
+  ansible.builtin.command: "id -u {{ ansible_user }}"
+  changed_when: false
+  register: user_uid
+
+- name: Check which user service units exist
+  ansible.builtin.stat:
+    path: "/usr/lib/systemd/user/{{ item }}"
+  loop: "{{ user_services }}"
+  register: user_service_units
+
+- name: Enable and start user services
+  become: true
+  become_user: "{{ ansible_user }}"
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user_uid.stdout }}"
+  ansible.builtin.systemd:
+    name: "{{ item.item }}"
+    enabled: true
+    state: started
+    scope: user
+  loop: "{{ user_service_units.results }}"
+  when: item.stat.exists

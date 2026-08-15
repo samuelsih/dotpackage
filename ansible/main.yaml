@@ -5,4 +5,5 @@
 - name: Cleanup
   hosts: all
   roles:
-    - cleanup
+    - role: cleanup
+      tags: [cleanup]
