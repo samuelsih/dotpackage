@@ -21,3 +21,5 @@
     - zsh
     - starship
     - taskfile
+    - uv
+    - volta

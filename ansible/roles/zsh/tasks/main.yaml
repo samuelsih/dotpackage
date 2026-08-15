@@ -16,8 +16,7 @@
     uri: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
     mode: "0755"
-    become: true
 
 - name: Install oh-my-zsh
   ansible.builtin.shell:
-    cmd: /tmp/oh-my-zsh.sh
+    cmd: /tmp/oh-my-zsh.sh --skip-chsh

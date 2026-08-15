@@ -1,0 +1,10 @@
+---
+- name: Fetch volta install script
+  ansible.builtin.uri:
+    uri: https://get.volta.sh
+    dest: /tmp/volta-install.sh
+    mode: "0755"
+
+- name: Install volta
+  ansible.builtin.shell:
+    cmd: /tmp/volta-install.sh --skip-setup
