@@ -1,0 +1,6 @@
+---
+- name: Install taskfile
+  become: true
+  community.general.pacman:
+    name: go-task
+    state: present

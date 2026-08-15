@@ -1,0 +1,24 @@
+---
+- name: Add Task Cloudsmith GPG key
+  become: true
+  ansible.builtin.apt_key:
+    url: https://dl.cloudsmith.io/public/task/task/gpg.046FD1186CA342F0.key
+    keyring: /usr/share/keyrings/task-task-archive-keyring.gpg
+    state: present
+
+- name: Add Task Cloudsmith repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [signed-by=/usr/share/keyrings/task-task-archive-keyring.gpg]
+      https://dl.cloudsmith.io/public/task/task/deb/ubuntu
+      {{ ansible_facts['distribution_release'] }} main
+    filename: task-task
+    state: present
+
+- name: Install taskfile
+  become: true
+  ansible.builtin.apt:
+    name: task
+    state: present
+    update_cache: true

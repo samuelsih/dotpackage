@@ -1,0 +1,6 @@
+---
+- name: Install taskfile
+  become: true
+  ansible.builtin.dnf:
+    name: go-task
+    state: present
