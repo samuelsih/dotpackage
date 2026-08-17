@@ -4,6 +4,7 @@
     name: zsh
     state: present
   become: true
+  register: zsh_package
 
 - name: Set user shell to zsh
   ansible.builtin.user:
@@ -13,10 +14,12 @@
 
 - name: Fetch oh-my-zsh
   ansible.builtin.uri:
-    uri: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
     mode: "0755"
+  when: zsh_package.changed
 
 - name: Install oh-my-zsh
   ansible.builtin.shell:
     cmd: /tmp/oh-my-zsh.sh --skip-chsh
+  when: zsh_package.changed

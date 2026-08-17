@@ -1,7 +1,7 @@
 ---
 - name: Fetch volta install script
   ansible.builtin.uri:
-    uri: https://get.volta.sh
+    url: https://get.volta.sh
     dest: /tmp/volta-install.sh
     mode: "0755"
 

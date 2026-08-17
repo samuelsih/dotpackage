@@ -9,7 +9,7 @@
   become: true
   community.general.copr:
     name: jdxcode/mise
-    state: present
+    state: enabled
 
 - name: Install mise
   become: true

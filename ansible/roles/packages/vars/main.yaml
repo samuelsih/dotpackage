@@ -19,10 +19,8 @@ target_packages:
   - podman
   - brightnessctl
   - pipewire
-  - pipewire-pulse
   - wireplumber
   - bluez
-  - sway
   - waybar
   - dunst
 
@@ -30,14 +28,19 @@ distro_packages:
   ubuntu:
     - network-manager
     - fd-find
+    - pipewire-pulse
   archlinux:
     - networkmanager
     - fd
     - fastfetch
+    - pipewire-pulse
   fedora:
     - NetworkManager
     - fd-find
     - fastfetch
+    - pipewire-pulseaudio
+    - NetworkManager-wifi
+    - alsa-sof-firmware
 
 system_services:
   - bluetooth.service
