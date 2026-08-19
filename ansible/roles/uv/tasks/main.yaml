@@ -1,14 +1,19 @@
 ---
+- name: Check if uv is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['user_dir'] }}/.local/bin/uv"
+  register: uv_installed
+
 - name: Fetch uv install script
   ansible.builtin.get_url:
     url: https://astral.sh/uv/install.sh
     dest: /tmp/uv-install.sh
     mode: "0755"
     force: true
-    headers:
-      Cache-Control: "no-cache"
-      Pragma: "no-cache"
+  when: not uv_installed.stat.exists
+  changed_when: false
 
 - name: Install uv
   ansible.builtin.shell:
     cmd: /tmp/uv-install.sh
+  when: not uv_installed.stat.exists

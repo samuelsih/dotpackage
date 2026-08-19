@@ -4,7 +4,6 @@
     name: zsh
     state: present
   become: true
-  register: zsh_package
 
 - name: Set user shell to zsh
   ansible.builtin.user:
@@ -12,14 +11,21 @@
     shell: /bin/zsh
   become: true
 
+- name: Check if oh-my-zsh is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['user_dir'] }}/.oh-my-zsh"
+  register: omz_installed
+
 - name: Fetch oh-my-zsh
-  ansible.builtin.uri:
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/oh-my-zsh.sh
     mode: "0755"
-  when: zsh_package.changed
+    force: true
+  when: not omz_installed.stat.exists
+  changed_when: false
 
 - name: Install oh-my-zsh
   ansible.builtin.shell:
     cmd: /tmp/oh-my-zsh.sh --skip-chsh
-  when: zsh_package.changed
+  when: not omz_installed.stat.exists

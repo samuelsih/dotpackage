@@ -22,6 +22,7 @@
         src: "{{ fonts_dir }}/JetBrainsMono.zip"
         dest: "{{ fonts_dir }}"
         remote_src: true
+        creates: "{{ fonts_dir }}/JetBrainsMonoNerdFont-Regular.ttf"
 
     - name: Ensure fontconfig is installed
       become: true

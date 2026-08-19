@@ -1,10 +1,19 @@
 ---
+- name: Check if volta is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['user_dir'] }}/.volta/bin/volta"
+  register: volta_installed
+
 - name: Fetch volta install script
-  ansible.builtin.uri:
+  ansible.builtin.get_url:
     url: https://get.volta.sh
     dest: /tmp/volta-install.sh
     mode: "0755"
+    force: true
+  when: not volta_installed.stat.exists
+  changed_when: false
 
 - name: Install volta
   ansible.builtin.shell:
     cmd: /tmp/volta-install.sh --skip-setup
+  when: not volta_installed.stat.exists
