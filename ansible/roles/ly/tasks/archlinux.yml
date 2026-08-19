@@ -1,0 +1,9 @@
+---
+- name: Install ly and prerequisites
+  become: true
+  community.general.pacman:
+    name:
+      - ly
+      - xorg-xauth
+      - brightnessctl
+    state: present

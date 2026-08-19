@@ -41,6 +41,7 @@ distro_packages:
     - pipewire-pulseaudio
     - NetworkManager-wifi
     - alsa-sof-firmware
+    - policycoreutils-python-utils
 
 system_services:
   - bluetooth.service
