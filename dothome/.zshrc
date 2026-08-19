@@ -1,6 +1,7 @@
 HISTFILE="$XDG_STATE_HOME/zsh/history"
 HISTSIZE=100000
 SAVEHIST=100000
+FUNCNEST=100
 
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
@@ -29,11 +30,14 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Load plugins from ~/.config/zshplugins (see dotconfig/zshplugins/README.md)
 ZPLUG="${XDG_CONFIG_HOME:-$HOME/.config}/zshplugins"
-
 source "$ZPLUG/zsh-autosuggestions.plugin.zsh"
 source "$ZPLUG/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 
-FUNCNEST=100
+# Ctrl+Left / Ctrl+Right word jump.
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+bindkey '^[[5C' forward-word
+bindkey '^[[5D' backward-word
 
 eval "$(starship init zsh)"
 
