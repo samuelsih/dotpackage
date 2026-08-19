@@ -10,6 +10,8 @@ shadow = false
 capsule = true
 capsule_fill = "surface_variant"
 capsule_border = "outline"
+margin_ends = 0
+font_family = "JetBrainsMono Nerd Font"
 start  = ["workspaces"]
 center = []
 end    = ["clock", "notifications", "clipboard", "network", "volume", "brightness", "battery", "session"]
@@ -22,3 +24,24 @@ empty_color = "#232a2d"
 
 [widget.clock]
 capsule_padding = 12
+
+[battery]
+warning_threshold = 20
+
+[brightness]
+enable_ddcutil = true
+
+[desktop_widgets]
+enabled = false
+
+[lockscreen]
+wallpaper = "/home/sxavity/Pictures/Wallpaper/wallhaven-0pzdoj.jpg"
+
+[shell]
+font_family = "JetBrainsMono Nerd Font"
+
+[shell.panel]
+transparency_mode = "soft"
+
+[weather]
+enabled = false
