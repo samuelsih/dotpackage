@@ -1,0 +1,48 @@
+---
+- name: Install ly prerequisites
+  become: true
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - libpam0g-dev
+      - libxcb-xkb-dev
+      - xauth
+      - xserver-xorg
+      - brightnessctl
+      - zig
+      - git
+    state: present
+    update_cache: true
+
+- name: Check if ly is installed
+  ansible.builtin.stat:
+    path: /usr/bin/ly
+  register: ly_binary
+
+- name: Build and install ly from source
+  become: true
+  block:
+    - name: Clone ly {{ ly_version }}
+      ansible.builtin.git:
+        repo: https://github.com/fairyglade/ly.git
+        dest: /tmp/ly
+        version: "{{ ly_version }}"
+        depth: 1
+
+    - name: Build and install ly
+      ansible.builtin.command:
+        cmd: zig build installexe -Dinit_system=systemd
+        chdir: /tmp/ly
+  when: not ly_binary.stat.exists
+
+- name: Disable getty on the ly TTY (takes effect at reboot)
+  become: true
+  ansible.builtin.systemd:
+    name: getty@tty2.service
+    enabled: false
+
+- name: Enable ly
+  become: true
+  ansible.builtin.systemd:
+    name: ly@tty2.service
+    enabled: true
