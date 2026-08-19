@@ -1,0 +1,9 @@
+[theme]
+mode = "dark"
+custom_pallete = "oxocarbon"
+
+[bar.default]
+position = "top"
+start  = ["workspaces"]
+center = []
+end    = ["clock", "notifications", "clipboard", "network", "volume", "brightness", "battery", "session"]
