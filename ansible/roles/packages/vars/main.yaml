@@ -21,8 +21,7 @@ target_packages:
   - pipewire
   - wireplumber
   - bluez
-  - waybar
-  - dunst
+  - neovim
 
 distro_packages:
   ubuntu:
