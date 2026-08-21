@@ -2,6 +2,7 @@ local map = vim.keymap.set
 
 -- basics
 map("n", "<leader>w", "<cmd>write<cr>", { desc = "Save file" })
+map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file tree" })
 map("n", "<leader>q", "<cmd>quit<cr>", { desc = "Quit window" })
 
 -- better navigation in insert mode
