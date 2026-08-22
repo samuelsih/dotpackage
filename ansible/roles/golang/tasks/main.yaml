@@ -1,0 +1,59 @@
+---
+- name: Get installed Go version
+  ansible.builtin.command: /usr/local/go/bin/go version
+  register: golang_installed_version
+  changed_when: false
+  failed_when: false
+
+- name: Set installed Go version fact
+  ansible.builtin.set_fact:
+    golang_installed: "{{ golang_installed_version.stdout | regex_search('go\\d+\\.\\d+(\\.\\d+)?') | default('') }}"
+
+- name: Get latest stable Go version
+  ansible.builtin.uri:
+    url: https://go.dev/VERSION?m=text
+    return_content: true
+  register: golang_latest_version
+  changed_when: false
+
+- name: Set latest Go version fact
+  ansible.builtin.set_fact:
+    golang_latest: "{{ golang_latest_version.content.split('\n')[0] }}"
+
+- name: Check if Go needs update
+  ansible.builtin.set_fact:
+    golang_needs_update: "{{ golang_installed != golang_latest }}"
+
+- name: Map architecture for Go
+  ansible.builtin.set_fact:
+    golang_arch: "{{ 'arm64' if ansible_facts['architecture'] in ['aarch64', 'arm64'] else 'amd64' }}"
+
+- name: Download Go tarball
+  ansible.builtin.get_url:
+    url: "https://go.dev/dl/{{ golang_latest }}.linux-{{ golang_arch }}.tar.gz"
+    dest: "/tmp/{{ golang_latest }}.linux-{{ golang_arch }}.tar.gz"
+    mode: "0644"
+    force: true
+  changed_when: false
+  when: golang_needs_update
+
+- name: Remove existing Go installation
+  ansible.builtin.file:
+    path: /usr/local/go
+    state: absent
+  become: true
+  when: golang_needs_update
+
+- name: Extract Go tarball
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ golang_latest }}.linux-{{ golang_arch }}.tar.gz"
+    dest: /usr/local
+    remote_src: true
+  become: true
+  when: golang_needs_update
+
+- name: Cleanup Go tarball
+  ansible.builtin.file:
+    path: "/tmp/{{ golang_latest }}.linux-{{ golang_arch }}.tar.gz"
+    state: absent
+  when: golang_needs_update

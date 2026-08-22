@@ -41,6 +41,9 @@ distro_packages:
     - NetworkManager-wifi
     - alsa-sof-firmware
     - policycoreutils-python-utils
+    - google-noto-sans-cjk-fonts
+    - google-noto-serif-cjk-fonts
+    - google-noto-emoji-fonts
 
 system_services:
   - bluetooth.service
