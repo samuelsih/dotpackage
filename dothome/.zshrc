@@ -44,3 +44,8 @@ eval "$(starship init zsh)"
 alias ll="ls -la"
 alias la=tree
 alias vim=nvim
+alias docker=podman
+alias ssh="kitty +kitten ssh"
+
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

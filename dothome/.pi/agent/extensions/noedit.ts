@@ -8,6 +8,8 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
+const allowedTools = new Set(["read", "webfetch", "ask_user"]);
+
 export default function (pi: ExtensionAPI) {
   let noeditActive = false;
 
@@ -37,9 +39,9 @@ export default function (pi: ExtensionAPI) {
   // Block file-mutating tool calls when noedit is active
   pi.on("tool_call", async (event, ctx) => {
     if (!noeditActive) return undefined;
-
+    
     // Read-only tools are allowed.
-    if (event.toolName === "read" || event.toolName === "webfetch") {
+    if (allowedTools.has(event.toolName)) {
       return undefined;
     }
 
@@ -47,7 +49,9 @@ export default function (pi: ExtensionAPI) {
     if (event.toolName === "write" || event.toolName === "edit") {
       return {
         block: true,
-        reason: "No-edit mode is active. Use /noedit to toggle off. Describe the changes instead of applying them.",
+        reason:
+          `No-edit mode is active. Allowed tools: ${[...allowedTools].join(", ")}. ` +
+          "Use /noedit to toggle off. Describe the changes instead of applying them.",
       };
     }
 

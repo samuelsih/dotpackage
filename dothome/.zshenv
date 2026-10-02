@@ -12,3 +12,7 @@ export PATH="$HOME/.bun/bin:$PATH"
 
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$(go env GOPATH)/bin"
+
+export PATH="$XDG_CACHE_HOME/.bun/bin:$PATH"
+
+export DOCKER_HOST="unix:///run/user/1000/podman/podman.sock"
